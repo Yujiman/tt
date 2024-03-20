@@ -1,0 +1,113 @@
+basePath: /{{cookiecutter.project_name | slugify | lower}}
+definitions:
+  schema.Empty:
+    type: object
+  schema.OrderCreateRequest:
+    properties:
+      channel_id:
+        type: integer
+      customer:
+        $ref: '#/definitions/schema.OrderCustomer'
+      order_comment:
+        type: string
+    type: object
+  schema.OrderCustomer:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      phone:
+        type: string
+    required:
+    - phone
+    type: object
+  schema.OrderResponse:
+    properties:
+      buyer_id:
+        type: integer
+      channel_id:
+        type: integer
+      created_at:
+        type: string
+      order_comment:
+        type: string
+      order_id:
+        type: integer
+      order_session:
+        type: string
+    type: object
+  schema.Response-schema_Empty:
+    properties:
+      message:
+        type: string
+      result:
+        $ref: '#/definitions/schema.Empty'
+      status:
+        type: boolean
+    type: object
+  schema.Response-schema_OrderResponse:
+    properties:
+      message:
+        type: string
+      result:
+        $ref: '#/definitions/schema.OrderResponse'
+      status:
+        type: boolean
+    type: object
+host: api-dev.fmobile.kz
+info:
+  contact: {}
+  description: {{cookiecutter.project_description}}
+  title: {{cookiecutter.project_name | slugify | lower}}
+paths:
+  /api/v1/orders:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: OrderCreateRequest Data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/schema.OrderCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.Response-schema_OrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schema.Response-schema_Empty'
+      summary: Создание заказа
+      tags:
+      - orders
+  /api/v1/orders/item:
+    get:
+      parameters:
+      - in: query
+        name: order_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/schema.Response-schema_OrderResponse'
+      summary: Получение заказа по ID
+      tags:
+      - orders
+schemes:
+- https
+- http
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

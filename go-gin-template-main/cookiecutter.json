@@ -1,0 +1,10 @@
+{
+  "project_name": "project-name",
+  "project_description": "Project short description",
+  "namespace": ["fmobile", "ecar"],
+  "package_name": "git-ffd.kz/{{cookiecutter.namespace}}/{{cookiecutter.project_name | slugify | lower}}",
+  "database_schema": "{{cookiecutter.project_name | slugify | lower | replace('-', '_') }}",
+  "port": "8000",
+  "sentry_dsn": "",
+  "_extensions": ["cookiecutter.extensions.SlugifyExtension"]
+}

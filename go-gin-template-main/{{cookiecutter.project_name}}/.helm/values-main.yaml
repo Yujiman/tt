@@ -1,0 +1,24 @@
+env:
+  open:
+    - name: "APP_NAME"
+      value: "{{cookiecutter.project_name | slugify | lower}}"
+    - name: "ENVIRONMENT"
+      value: "prod"
+    - name: "PORT"
+      value: "{{cookiecutter.port}}"
+    - name: "DOMAIN"
+      value: "api.fmobile.kz"
+
+    - name: "VAULT_URL"
+      value: "https://vault.fmobile.kz"
+    - name: "VAULT_USER"
+      value: ""
+    - name: "VAULT_PASSWORD"
+      value: ""
+    - name: "NAMESPACE"
+      value: "new-mobile-world"
+    - name: "VAULT_COMMON_KV"
+      value: "common"
+
+    - name: "DATABASE_SCHEMA"
+      value: "{{cookiecutter.database_schema}}"
